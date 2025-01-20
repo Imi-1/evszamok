@@ -44,11 +44,28 @@ const tbody = document.createElement('tbody'); // Táblázat törzs részének l
 tbody.id="tbodyID"; //Id-t adok a tbodynak
 table.appendChild(tbody); // Törzs hozzáadása a táblázathoz
 
+function createHeader(){
 
-
-
-
-
+    const headerObj = {
+        cell1: "Időszak",  // Az első oszlop neve
+        cell2: "Évszám",   // A második oszlop neve
+        cell3: "Esemény",   // A harmadik oszlop neve
+        cell4: "Tananyag"   // A negyedik oszlop neve
+    };
+    
+    const tableId = document.getElementById("tableID")//Létrehozunk egy új változót, ami a tableID id-jú táblázatot (table) tárolja
+    const thead = document.createElement('thead'); // Létrehozom a táblázat fejlécét
+    tableId.appendChild(thead); // Hozzáadom a fejlécet a táblázathoz
+    
+    const headerRow = document.createElement('tr'); // Létrehozok egy sort a fejléc számára
+    thead.appendChild(headerRow); // Hozzáadom a sort a táblázat fejlécéhez
+    
+    for(const i in headerObj){ // Végigiterál a headerObj objektumon
+        const headerCell = document.createElement('th'); // Létrehozom a cellát a fejlécben
+        headerCell.innerHTML = headerObj[i]; // Beállítom a cella szövegét a tömb segítségével
+        headerRow.appendChild(headerCell); // Hozzáadom a cellát a fejléc sorához
+    }
+}
 
 
 
@@ -95,9 +112,15 @@ function renderTable(array){//Függvény létrehozása. Bemeneti paraméter egy 
     }
   
 }
+
+
+
+
+
+
 //generateColgroup() //Függvény meghívása
 
-//createHeader() //Függvény meghívása
+createHeader() //Függvény meghívása
 
 renderTable(array) //Függvény meghívása
 
@@ -193,10 +216,7 @@ form.addEventListener('submit', function(e) { // Eseményfigyelőt adunk a submi
 
 
 
-
-
-
-function validateFormInputFields(inputElement, errormessage){  
+function validateFormInputFields(inputElement, errormessage){  //Függvény létrehozása 2 bemeneti paraméterrel. Input elem amit validálunk és a hibaüzenet
     let validation = true;  // Kezdőértékként igazra állítjuk a validációs változót
     if(inputElement.value === ""){  // Ellenőrizzük, hogy az input mező üres-e
         const parentElement = inputElement.parentElement;  // Megkeressük az input mező szülőelemét
@@ -208,11 +228,8 @@ function validateFormInputFields(inputElement, errormessage){
 }
 
 
-function validateFormInputFieldsExtra(inputElement1, inputElement2, inputElement3, errormessage) {
+function validateFormInputFieldsExtra(inputElement1, inputElement2, inputElement3, errormessage)  {//Függvény létrehozása 3 bemeneti paraméterrel. Input elemek amit validálunk és a hibaüzenet. Mindig az első bemeneti érték a jelenleg ellenőrzött input.
     let validation = true; // Kezdőértékként igazra állítjuk a validációs változót
-
-    
-    
     if (inputElement1.value !== "" || inputElement2.value !== "" || inputElement3.value !== "") {// Ha legalább egy mező ki van töltve, akkor a többit is ellenőrizzük
 
         if (inputElement1.value === "" || inputElement2.value === "" || inputElement3.value === "") {// Ha legalább az egyik mező ki van töltve
