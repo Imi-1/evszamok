@@ -1,0 +1,18 @@
+table, tr, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.colored-column{
+    background-color: lightblue;
+}
+.error{
+    color: red;
+    text-shadow: 3px 3px 3px black;
+}
+body {
+    background-color: rgb(109, 109, 109);
+}
+
+thead{
+    background-color: gray;
+}
