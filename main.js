@@ -44,6 +44,25 @@ const tbody = document.createElement('tbody'); // Táblázat törzs részének l
 tbody.id="tbodyID"; //Id-t adok a tbodynak
 table.appendChild(tbody); // Törzs hozzáadása a táblázathoz
 
+
+
+function generateColgroup(){
+    const tableId = document.getElementById("tableID")//Létrehozunk egy új változót, ami a tableID id-jú táblázatot (table) tárolja
+    const colgroup = document.createElement('colgroup');  // Létrehozza a <colgroup> elemet
+    tableId.appendChild(colgroup);  // Hozzáadja a <colgroup> elemet a táblázathoz
+
+    for(let i = 0; i < 3; i++){  // Három oszlopot hoz létre a colgroup számára
+        const col = document.createElement('col');  // Létrehozza a <col> elemet
+
+        col.className = (i === 0 || i === 2) ? "colored-column" : "";  // A megfelelő indexeknél hozzáadja a "colored-column" osztályt
+
+        colgroup.appendChild(col);  // Hozzáadja a <col> elemet a <colgroup> elemhez
+    }
+}
+
+
+
+
 function createHeader(){
 
     const headerObj = {
@@ -118,7 +137,7 @@ function renderTable(array){//Függvény létrehozása. Bemeneti paraméter egy 
 
 
 
-//generateColgroup() //Függvény meghívása
+generateColgroup() //Függvény meghívása
 
 createHeader() //Függvény meghívása
 
