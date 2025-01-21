@@ -1,6 +1,6 @@
-
-
-
+/**
+ * Létrehozza a <colgroup> elemet és hozzáadja a táblázathoz.
+ */
 function generateColgroup(){
     const tableId = document.getElementById("tableID")//Létrehozunk egy új változót, ami a tableID id-jú táblázatot (table) tárolja
     const colgroup = document.createElement('colgroup');  // Létrehozza a <colgroup> elemet
@@ -16,8 +16,9 @@ function generateColgroup(){
 }
 
 
-
-
+/**
+ * Létrehozza a táblázat fejlécét a megadott címek alapján.
+ */
 function createHeader(){
 
     const headerObj = {
@@ -42,7 +43,12 @@ function createHeader(){
 }
 
 
-
+/**
+ * Létrehozza a táblázat sorait és celláit az array paraméter alapján.
+ * Ha van megfelelő adat a második sorhoz, azt is létrehozza.
+ * 
+ * @param {Array} array - A táblázat sorainak adatait tartalmazó tömb. 
+ */
 function renderTable(array){//Függvény létrehozása. Bemeneti paraméter egy tömb lesz, jelen esetben ez az array.
     for (const i in array) { // Iterálunk végig az array elemein
         const row1 = document.createElement('tr'); // Létrehozunk egy új sort
@@ -90,7 +96,13 @@ function renderTable(array){//Függvény létrehozása. Bemeneti paraméter egy 
 
 
 
-
+/**
+ * Validálja az input mezőt, és ha az üres, hibaüzenetet jelenít meg.
+ * 
+ * @param {HTMLElement} inputElement - Az input mező, amelyet validálni kell.
+ * @param {string} errormessage - A hibaüzenet, amely akkor jelenik meg, ha az input mező üres.
+ * @returns {boolean} - Visszaadja, hogy a validáció sikeres volt-e (true/false).
+ */
 function validateFormInputFields(inputElement, errormessage){  //Függvény létrehozása 2 bemeneti paraméterrel. Input elem amit validálunk és a hibaüzenet
     let validation = true;  // Kezdőértékként igazra állítjuk a validációs változót
     if(inputElement.value === ""){  // Ellenőrizzük, hogy az input mező üres-e
@@ -102,7 +114,16 @@ function validateFormInputFields(inputElement, errormessage){  //Függvény lét
     return validation;  // Visszaadjuk az érvényességi állapotot
 }
 
-
+/**
+ * Validálja a három input mezőt. Ha bármelyik mező ki van töltve, a többi mezőt is ellenőrzi.
+ * Ha valamelyik mező üres, hibaüzenetet jelenít meg.
+ * 
+ * @param {HTMLElement} inputElement1 - Az első input mező.
+ * @param {HTMLElement} inputElement2 - A második input mező.
+ * @param {HTMLElement} inputElement3 - A harmadik input mező.
+ * @param {string} errormessage - A hibaüzenet, amely akkor jelenik meg, ha valamelyik mező üres.
+ * @returns {boolean} - Visszaadja, hogy a validáció sikeres volt-e (true/false).
+ */
 function validateFormInputFieldsExtra(inputElement1, inputElement2, inputElement3, errormessage)  {//Függvény létrehozása 3 bemeneti paraméterrel. Input elemek amit validálunk és a hibaüzenet. Mindig az első bemeneti érték a jelenleg ellenőrzött input.
     let validation = true; // Kezdőértékként igazra állítjuk a validációs változót
     if (inputElement1.value !== "" || inputElement2.value !== "" || inputElement3.value !== "") {// Ha legalább egy mező ki van töltve, akkor a többit is ellenőrizzük
@@ -126,7 +147,13 @@ function validateFormInputFieldsExtra(inputElement1, inputElement2, inputElement
     return validation; // Visszatérünk a validáció eredményével
 }
 
-
+/**
+ * Létrehozza a <label> elemet a megadott címkével és az input elem id-jével.
+ * 
+ * @param {string} labelText - A <label> szövege.
+ * @param {string} htmlFor - Az input elem id-ja, amelyhez a label tartozik.
+ * @returns {HTMLElement} - A létrehozott <label> elem.
+ */
 function createLabel(labelText, htmlFor) { // Létrehozza a label elemet, amely tartalmazza a címkét és hozzárendeli az input mezőhöz
     const label = document.createElement('label'); // Létrehoz egy <label> elemet
     label.textContent = labelText; // Beállítja a label szövegét
@@ -134,7 +161,14 @@ function createLabel(labelText, htmlFor) { // Létrehozza a label elemet, amely 
     return label; // Visszaadja a létrehozott label elemet
 }
 
-
+/**
+ * Létrehozza az <input> elemet a megadott típus, id és név alapján.
+ * 
+ * @param {string} inputType - Az input elem típusa
+ * @param {string} inputId - Az input elem id-ja.
+ * @param {string} inputName - Az input elem neve.
+ * @returns {HTMLElement} - A létrehozott <input> elem.
+ */
 function createInput(inputType, inputId, inputName) { // Létrehozza az input elemet
     const input = document.createElement('input'); // Létrehoz egy <input> elemet
     input.type = inputType; // Beállítja az input típusát
@@ -143,7 +177,14 @@ function createInput(inputType, inputId, inputName) { // Létrehozza az input el
     return input; // Visszaadja a létrehozott input elemet
 }
 
-
+/**
+ * Létrehozza a <select> elemet a megadott id, név és opciók alapján.
+ * 
+ * @param {string} selectId - A <select> elem id-ja.
+ * @param {string} selectName - A <select> elem neve.
+ * @param {Array} options - A legördülő lista opciói.
+ * @returns {HTMLElement} - A létrehozott <select> elem.
+ */
 function createSelect(selectId, selectName, options) { // Létrehozza a select elemet és annak opcióit
     const select = document.createElement('select'); // Létrehoz egy <select> elemet
     select.id = selectId; // Beállítja az id-t
@@ -160,14 +201,20 @@ function createSelect(selectId, selectName, options) { // Létrehozza a select e
     return select; // Visszaadja a létrehozott select elemet
 }
 
-
+/**
+ * Létrehozza a hibát jelző <div> elemet, amely az "error" osztályú.
+ * 
+ * @returns {HTMLElement} - A létrehozott hibajelző <div> elem.
+ */
 function createErrorDiv() { // Létrehozza és visszaadja a hibát jelző div elemet
     const errorDiv = document.createElement('div'); // Létrehoz egy <div> elemet
     errorDiv.className = 'error'; // Beállítja az osztály nevét
     return errorDiv; // Visszaadja a hibadiv-et
 }
 
-
+/**
+ * Létrehozza a formot az egyes mezők és a submit gomb hozzáadásával.
+ */
 function generateForm() { // Generálja a formot a mezők és a gombok hozzáadásával
     const form = document.createElement('form'); // Létrehoz egy új <form> elemet
     form.id = 'form'; // Beállítja a form id-ját
