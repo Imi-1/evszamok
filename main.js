@@ -144,7 +144,7 @@ createHeader() //Függvény meghívása
 
 renderTable(array) //Függvény meghívása
 
-//generateForm()//Függvény meghívása
+generateForm()//Függvény meghívása
 
 
 
@@ -273,3 +273,136 @@ function validateFormInputFieldsExtra(inputElement1, inputElement2, inputElement
     return validation; // Visszatérünk a validáció eredményével
 }
 
+
+function createLabel(labelText, htmlFor) { // Létrehozza a label elemet, amely tartalmazza a címkét és hozzárendeli az input mezőhöz
+    const label = document.createElement('label'); // Létrehoz egy <label> elemet
+    label.textContent = labelText; // Beállítja a label szövegét
+    label.htmlFor = htmlFor; // Beállítja a "for" attribútumot, amely összekapcsolja a label-t és az inputot
+    return label; // Visszaadja a létrehozott label elemet
+}
+
+
+function createInput(inputType, inputId, inputName) { // Létrehozza az input elemet
+    const input = document.createElement('input'); // Létrehoz egy <input> elemet
+    input.type = inputType; // Beállítja az input típusát
+    input.id = inputId; // Beállítja az input id-jét
+    input.name = inputName; // Beállítja az input nevét
+    return input; // Visszaadja a létrehozott input elemet
+}
+
+
+function createSelect(selectId, selectName, options) { // Létrehozza a select elemet és annak opcióit
+    const select = document.createElement('select'); // Létrehoz egy <select> elemet
+    select.id = selectId; // Beállítja az id-t
+    select.name = selectName; // Beállítja a name attribútumot
+
+    // Végigmegy az opciók listáján és hozzáadja őket a select elemhez
+    for (const i of options) {
+        const option = document.createElement('option'); // Létrehoz egy <option> elemet
+        option.value = i; // Beállítja az opció értékét
+        option.textContent = i; // Beállítja az opció szövegét
+        select.appendChild(option); // Hozzáadja az opciót a <select>-hez
+    }
+
+    return select; // Visszaadja a létrehozott select elemet
+}
+
+
+function createErrorDiv() { // Létrehozza és visszaadja a hibát jelző div elemet
+    const errorDiv = document.createElement('div'); // Létrehoz egy <div> elemet
+    errorDiv.className = 'error'; // Beállítja az osztály nevét
+    return errorDiv; // Visszaadja a hibadiv-et
+}
+
+
+function generateForm() { // Generálja a formot a mezők és a gombok hozzáadásával
+    const form = document.createElement('form'); // Létrehoz egy új <form> elemet
+    form.id = 'form'; // Beállítja a form id-ját
+    form.action = '#'; // Beállítja a form action tulajdonságát (itt #, azaz nem küld el adatokat sehova)
+
+    // A mezők adatai, minden mező egy objektum, amely tartalmazza a szükséges információkat
+    const fields = [
+        {
+            label: 'Korszak megnevezés:', // A mező címkéje
+            id: 'korszak', // Az input mező id-ja
+            name: 'korszak', // Az input mező neve
+            type: 'text' // Az input mező típusa (szöveg típusú)
+        },
+        {
+            label: '1. esemény évszám:', // A mező címkéje
+            id: 'evszam1', // Az input mező id-ja
+            name: 'evszam1', // Az input mező neve
+            type: 'text' // Az input mező típusa (szöveg típusú)
+        },
+        {
+            label: '1. esemény megnevezés:', // A mező címkéje
+            id: 'megnev1', // Az input mező id-ja
+            name: 'megnev1', // Az input mező neve
+            type: 'text' // Az input mező típusa (szöveg típusú)
+        },
+        {
+            label: '1. esemény tananyag:', // A mező címkéje
+            id: 'tan1', // Az input mező id-ja
+            name: 'tan1', // Az input mező neve
+            type: 'select', // A mező típusa (legördülő lista)
+            options: ['', 'Magyar történelem', 'Egyetemes történelem'] // Az opciók listája a select mezőhöz
+        },
+        {
+            label: '2. esemény évszám:', // A mező címkéje
+            id: 'evszam2', // Az input mező id-ja
+            name: 'evszam2', // Az input mező neve
+            type: 'text' // Az input mező típusa (szöveg típusú)
+        },
+        {
+            label: '2. esemény megnevezés:', // A mező címkéje
+            id: 'megnev2', // Az input mező id-ja
+            name: 'megnev2', // Az input mező neve
+            type: 'text' // Az input mező típusa (szöveg típusú)
+        },
+        {
+            label: '2. esemény tananyag:', // A mező címkéje
+            id: 'tan2', // Az input mező id-ja
+            name: 'tan2', // Az input mező neve
+            type: 'select', // A mező típusa (legördülő lista)
+            options: ['', 'Magyar történelem', 'Egyetemes történelem'] // Az opciók listája a select mezőhöz
+        }
+    ];
+
+    
+    for (const i of fields) {  // Végigiterálunk a fields tömbön
+        const fieldDiv = document.createElement('div'); // Létrehoz egy div-et a mezőhöz
+        fieldDiv.className = 'field'; // Beállítja az osztály nevét
+
+        // Létrehozza a label-t és hozzáadja
+        const label = createLabel(i.label, i.id);
+        fieldDiv.appendChild(label);
+
+        fieldDiv.appendChild(document.createElement('br')); // Sortörés
+
+        
+        if (i.type === 'select') { // Létrehozza az inputot vagy selectet, és hozzáadja
+            const select = createSelect(i.id, i.name, i.options);
+            fieldDiv.appendChild(select); // Ha select, akkor hozzáadjuk a selectet
+        } else {
+            const input = createInput(i.type, i.id, i.name);
+            fieldDiv.appendChild(input); // Ha nem select, akkor hozzáadjuk az inputot
+        }
+
+        fieldDiv.appendChild(document.createElement('br')); // Sortörés
+        fieldDiv.appendChild(document.createElement('br')); // További sortörés
+
+        // Létrehozza és hozzáadja a hibadiv-et
+        const errorDiv = createErrorDiv();
+        fieldDiv.appendChild(errorDiv);
+
+        form.appendChild(fieldDiv); // Hozzáadja a mező div-et a formhoz
+    }
+
+    // Létrehozza a submit gombot és hozzáadja a formhoz
+    const button = document.createElement('button');
+    button.type = 'submit'; // Beállítja a gomb típusát submit-ra
+    button.textContent = 'Hozzáadás'; // Beállítja a gomb szövegét
+    form.appendChild(button);
+
+    document.body.appendChild(form); // Hozzáadja a formot a body-hoz
+}
