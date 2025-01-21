@@ -193,8 +193,8 @@ function createSelect(selectId, selectName, options) { // Létrehozza a select e
     // Végigmegy az opciók listáján és hozzáadja őket a select elemhez
     for (const i of options) {
         const option = document.createElement('option'); // Létrehoz egy <option> elemet
-        option.value = i; // Beállítja az opció értékét
-        option.textContent = i; // Beállítja az opció szövegét
+        option.value = i.value; // Beállítja az opció értékét
+        option.textContent = i.textContent; // Beállítja az opció szövegét
         select.appendChild(option); // Hozzáadja az opciót a <select>-hez
     }
 
@@ -245,7 +245,20 @@ function generateForm() { // Generálja a formot a mezők és a gombok hozzáad�
             id: 'tan1', // Az input mező id-ja
             name: 'tan1', // Az input mező neve
             type: 'select', // A mező típusa (legördülő lista)
-            options: ['', 'Magyar történelem', 'Egyetemes történelem'] // Az opciók listája a select mezőhöz
+            options: [
+                {
+                    value: '', // Az opció értéke üres
+                    textContent: '' // Az opció szövege üres
+                },
+                {
+                    value: 'magyar', // Az űrlap elküldésekor "magyar" értéket fog visszaadni
+                    textContent: 'Magyar történelem' // Az opció megjelenő szövege a felhasználónak
+                },
+                {
+                    value: 'egyetemes', // Az űrlap elküldésekor "egyetemes" értéket fog visszaadni
+                    textContent: 'Egyetemes történelem' // Az opció megjelenő szövege a felhasználónak
+                }
+            ]
         },
         {
             label: '2. esemény évszám:', // A mező címkéje
@@ -264,7 +277,21 @@ function generateForm() { // Generálja a formot a mezők és a gombok hozzáad�
             id: 'tan2', // Az input mező id-ja
             name: 'tan2', // Az input mező neve
             type: 'select', // A mező típusa (legördülő lista)
-            options: ['', 'Magyar történelem', 'Egyetemes történelem'] // Az opciók listája a select mezőhöz
+            options: [
+                {
+                    value: '', // Az opció értéke üres
+                    textContent: '' // Az opció szövege üres
+                },
+                {
+                    value: 'magyar', // Az űrlap elküldésekor "magyar" értéket fog visszaadni
+                    textContent: 'Magyar történelem' // Az opció megjelenő szövege a felhasználónak
+                },
+                {
+                    value: 'egyetemes', // Az űrlap elküldésekor "egyetemes" értéket fog visszaadni
+                    textContent: 'Egyetemes történelem' // Az opció megjelenő szövege a felhasználónak
+                }
+            ]
+            
         }
     ];
 
