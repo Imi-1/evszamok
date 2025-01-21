@@ -91,7 +91,8 @@ function createHeader(){
 function renderTable(array){//Függvény létrehozása. Bemeneti paraméter egy tömb lesz, jelen esetben ez az array.
     for (const i in array) { // Iterálunk végig az array elemein
         const row1 = document.createElement('tr'); // Létrehozunk egy új sort
-        tbody.appendChild(row1); // Hozzáadjuk az új sort a tbody-hoz
+        const tbodyId=document.getElementById("tbodyID");//Létrehozunk egy új változót, ami a tbodyID id-jú táblázat fejlécét tárolja
+        tbodyId.appendChild(row1); // Hozzáadjuk az új sort a tbody-hoz
     
         const cell1 = document.createElement('td'); // Létrehozunk egy új cellát az első oszlophoz
         cell1.innerHTML = array[i].cell1; // Beállítjuk a cella tartalmát az array[i].cell1 értékére
@@ -109,7 +110,7 @@ function renderTable(array){//Függvény létrehozása. Bemeneti paraméter egy 
         cell4.innerHTML = array[i].cell4; // Beállítjuk a cella tartalmát az array[i].cell4 értékére
         row1.appendChild(cell4); // Hozzáadjuk a harmadik cellát a sorhoz
 
-        if (array[i].cell5 !== undefined && array[i].cell6 !== undefined && array[i].cell7 !== undefined){ // Megnézzük, hogy a valamelyik cella undefiened-e
+        if (array[i].cell5 !== undefined && array[i].cell6 !== undefined && array[i].cell7 !== undefined){// Megnézzük, hogy a valamelyik cella undefiened-e
 
             cell1.rowSpan = "2"; // Rowspant adunk a cell1-nek
 
@@ -174,9 +175,11 @@ form.addEventListener('submit', function(e) { // Eseményfigyelőt adunk a submi
     const cell3Value = cell3HtmlElement.value; // 1. esemény megnevezése
     const cell4Value = cell4HtmlElement.value; // 1. esemény tananyaga
 
-    const cell5Value = cell5HtmlElement.value; // 2. esemény évszáma
-    const cell6Value = cell6HtmlElement.value; // 2. esemény megnevezése
-    const cell7Value = cell7HtmlElement.value; // 2. esemény tananyaga
+    //Ha "" lenne az értéka akkor undefined lesz
+    const cell5Value = cell5HtmlElement.value === '' ? undefined : cell5HtmlElement.value; // 2. esemény évszáma
+    const cell6Value = cell6HtmlElement.value === '' ? undefined : cell6HtmlElement.value; // 2. esemény megnevezése
+    const cell7Value = cell7HtmlElement.value === '' ? undefined : cell7HtmlElement.value; // 2. esemény tananyaga
+
 
     if(!validateFormInputFields(cell1HtmlElement, "Kötelező megadni a korszak nevét!")){ //Megnézi, hogy a validateFormInputFields false értékkel tért-e vissza
     valid = false; // Amennyiben false volt a valid értékét false-ra állítja
@@ -223,7 +226,7 @@ form.addEventListener('submit', function(e) { // Eseményfigyelőt adunk a submi
 
         array.push(newElement); // Új objektum hozzáadása az array-hez
         tbody.innerHTML = ''; // Táblázat tartalmának törlése
-        renderTable(); // Táblázat újrarenderelése
+        renderTable(array); // Táblázat újrarenderelése
         thisForm.reset(); // A form mezőinek alaphelyzetbe állítása
     }
 
@@ -252,11 +255,11 @@ function validateFormInputFieldsExtra(inputElement1, inputElement2, inputElement
     if (inputElement1.value !== "" || inputElement2.value !== "" || inputElement3.value !== "") {// Ha legalább egy mező ki van töltve, akkor a többit is ellenőrizzük
 
         if (inputElement1.value === "" || inputElement2.value === "" || inputElement3.value === "") {// Ha legalább az egyik mező ki van töltve
-            // Ha van üres mező a kitöltött mezők mellett, akkor hibaüzenet jelenik meg
-            const parentElement = inputElement1.parentElement;  // Megkeressük az első input mező szülőelemét
-            const error = parentElement.querySelector('.error'); // Az első input mező szülőelemében keresünk egy "error" osztályú elemet
-            error.innerHTML = errormessage; // Beállítjuk a hibaüzenetet
-            validation = false; // A validáció hamisra állítása
+             // Ha van üres mező a kitöltött mezők mellett, akkor hibaüzenet jelenik meg
+             const parentElement = inputElement1.parentElement;  // Megkeressük az első input mező szülőelemét
+             const error = parentElement.querySelector('.error'); // Az első input mező szülőelemében keresünk egy "error" osztályú elemet
+             error.innerHTML = errormessage; // Beállítjuk a hibaüzenetet
+             validation = false; // A validáció hamisra állítása
         }
     }
 
